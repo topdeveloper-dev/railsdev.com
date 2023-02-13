@@ -2,15 +2,7 @@ class DevelopersController < ApplicationController
   before_action :authenticate_user!, only: %i[new create edit update]
   before_action :require_new_developer!, only: %i[new create]
 
-  def index
-    @developers_count = SignificantFigure.new(Developer.visible.count).rounded
-    @query = DeveloperQuery.new(permitted_attributes([:developers, :query]).merge(user: current_user))
-    @meta = Developers::Meta.new(query: @query, count: @developers_count)
 
-    paywall = Developers::PaywalledSearchResults.new(user: current_user, page: @query.pagy.page)
-    redirect_to developers_path if paywall.unauthorized_page?
-    @paywall_results = paywall.show_paywall?(@query.pagy.count)
-  end
 
   def new
     @developer = current_user.build_developer
