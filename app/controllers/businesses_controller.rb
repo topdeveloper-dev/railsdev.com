@@ -6,28 +6,7 @@ class BusinessesController < ApplicationController
     @business = current_user.build_business
   end
 
-  def create
-    @business = current_user.build_business
-    @business.assign_attributes(permitted_attributes(@business))
 
-    if @business.save_and_notify
-      url = stored_location_for(:user) || developers_path
-      event = Analytics::Event.added_business_profile(url)
-      redirect_to event, notice: t(".created")
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
-
-  def show
-    @business = Business.find(params[:id])
-    authorize @business
-  end
-
-  def edit
-    @business = Business.find(params[:id])
-    authorize @business
-  end
 
   def update
     @business = Business.find(params[:id])
