@@ -6,7 +6,11 @@ class BlocksController < ApplicationController
     @conversation = conversation
   end
 
-
+  def create
+    authorize conversation
+    conversation.touch(blocked_by_column)
+    redirect_to root_path, notice: t(".notice", other_recipient:)
+  end
 
   private
 
