@@ -10,7 +10,10 @@
             <span class="absolute inset-0 shadow-inner rounded-full" aria-hidden="true"></span>
           </div>
         </div>
-
+        <div>
+          <%= render Businesses::WebsiteLinkComponent.new(@business) %>
+          <p class="text-gray-500 mt-1"><%= [@business.contact_name, @business.contact_role].map(&:presence).compact.join(", ") %></p>
+        </div>
       </div>
 
       <div class="mt-6 flex flex-col-reverse justify-stretch space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-x-reverse sm:space-y-0 sm:space-x-3 md:mt-0 md:flex-row md:space-x-3">
